@@ -14,7 +14,7 @@ The user can sign in as a patient or a provider. For debugging purposes, the use
 For patients, the user must put in a patient ID.
 - The patients can view their information and all of their eligible trials. Any trial can be clicked on in order to view more information.
 
-For providers, they must put in their login username and password. The debug login username is "testuser" and login password is "testpassword".
+For providers, they must put in their login username and password. The default login username is "testuser" and login password is "testpassword".
 - The provider can then search all patients by patient ID or clinical trials by trial ID. Searching a patient brings up their information and eligible trials. Searching a trial brings up the trial information.
 
 # Setup and Running:
