@@ -1,17 +1,21 @@
 # clinical-trial-matching-system
 ---
+Uses ICTRP trials and EMRBots patient information with language processing to match patients to trials they would be eligible for.
 
-- Uses simulated datasets of patient information and actual clinical trials to match patients to trials.
-- Uses ICTRP trials and EMRBots trial information with language processing to find which trials a patient would be eligible for.
-- The user can sign in as a patient or a provider. For debugging purposes, the user can create a fake login in order to see what the provider would be able to see.
+  
+- Patient IDs are specified in ./datasets/100-Patients/PatientCorePopulatedTable.txt, in the "PatientID" column. Ex. "FB2ABB23-C9D0-4D09-8464-49BF0B982F0F"
+- Trial IDs are specified in ./datasets/ICTRP/ICTRPWeek25September2023.csv, in the 1st column. Ex. "NCT06032923"
 
 # Usage:
 ---
-For patients, the user must put in a patient ID, as specified in the ./datasets/100-Patients/PatientCorePopulatedTable.txt file, in the "PatientID" column. Ex. "FB2ABB23-C9D0-4D09-8464-49BF0B982F0F"
+
+- The user can sign in as a patient or a provider. For debugging purposes, the user can create a fake login in order to see what the provider would be able to see.
+
+For patients, the user must put in a patient ID.
 - The patients can view their information and all of their eligible trials. Any trial can be clicked on in order to view more information.
 
 For providers, they must put in their login username and password. The debug login username is "testuser" and login password is "testpassword".
-- The provider can then see all patients and clinical trials in the dataset. Any patient or trial can be clicked on in order to view more information. If a patient is clicked on, their information and eligible trials can be seen.
+- The provider can then search all patients by patient ID or clinical trials by trial ID. Searching a patient brings up their information and eligible trials. Searching a trial brings up the trial information.
 
 # Setup:
 ---
