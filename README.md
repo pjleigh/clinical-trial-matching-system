@@ -17,7 +17,7 @@ For patients, the user must put in a patient ID.
 For providers, they must put in their login username and password. The debug login username is "testuser" and login password is "testpassword".
 - The provider can then search all patients by patient ID or clinical trials by trial ID. Searching a patient brings up their information and eligible trials. Searching a trial brings up the trial information.
 
-# Setup:
+# Setup and Running:
 ---
 1. Run setup.py in order to install all required packages.
 2. Run CTMS.py to view the application. The application has buttons and text prompts to be inputted by the user, and will bring up error prompts when an inccorect input is put in.
