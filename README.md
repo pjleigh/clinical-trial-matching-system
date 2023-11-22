@@ -1,15 +1,15 @@
 # clinical-trial-matching-system
 ---
 Uses ICTRP trials and EMRBots patient information with language processing to match patients to trials they would be eligible for.
-
+-
   
 - Patient IDs are specified in ./datasets/100-Patients/PatientCorePopulatedTable.txt, in the "PatientID" column. Ex. "FB2ABB23-C9D0-4D09-8464-49BF0B982F0F"
 - Trial IDs are specified in ./datasets/ICTRP/ICTRPWeek25September2023.csv, in the 1st column. Ex. "NCT06032923"
 
 # Usage:
 ---
-
-- The user can sign in as a patient or a provider. For debugging purposes, the user can create a fake login in order to see what the provider would be able to see.
+The user can sign in as a patient or a provider. For debugging purposes, the user can create a fake login in order to see what the provider would be able to see.
+-
 
 For patients, the user must put in a patient ID.
 - The patients can view their information and all of their eligible trials. Any trial can be clicked on in order to view more information.
