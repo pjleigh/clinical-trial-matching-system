@@ -3,9 +3,9 @@ import re
 from datetime import date
 
 # TRIALS & patient info
-#trialfile = './datasets/ICTRP/ICTRPWeek25September2023.csv'
-trialfile = './datasets/ICTRP/patienttest.csv' # DEBUG FOR TESTING
-#trialfile = './datasets/ICTRP/thousandtrials.csv'
+trialfile = './datasets/ICTRP/ICTRPWeek25September2023.csv'
+#trialfile = './datasets/ICTRP/test.csv' # DEBUG FOR TESTING
+trialfile = './datasets/ICTRP/thousandtrials.csv'
 patientdiagnosisfile = './datasets/100-patients/AdmissionsDiagnosesCorePopulatedTable.txt'
 patientinfofile = './datasets/100-patients/PatientCorePopulatedTable.txt'
 
@@ -31,12 +31,7 @@ def readpatientinfotxt():
 
 # reads in any filtering xlsx list
 def readfilterlist(filename, columnnum):
-    filterlist = []    
-
-    for i in list(pd.read_excel(filename, header=None).loc[:, columnnum]):
-        filterlist.append(str(i))
-
-    return filterlist
+    return list(pd.read_excel(filename, header=None).loc[:, columnnum])
 
 # gets patient id from patientinfo 
 def getid(patientinfo, patientnum):
@@ -73,9 +68,9 @@ def getpatientinfo(patientinfo, patientnum):
     patient.append(f"Patient Gender: {patientinfo.loc[patientnum, 'PatientGender']}")
     patient.append(f"Patient Date of Birth: {patientinfo.loc[patientnum, 'PatientDateOfBirth']}")
     patient.append(f"Patient Race: {patientinfo.loc[patientnum, 'PatientRace']}")
-    patient.append(f"Patient Marital Status: {patientinfo.loc[patientnum, 'PatientMaritalStatus']}")
-    patient.append(f"Patient Language: {patientinfo.loc[patientnum, 'PatientLanguage']}")
-    patient.append(f"Patient Population Percentage Below Poverty: {patientinfo.loc[patientnum, 'PatientPopulationPercentageBelowPoverty']}")
+    patient.append(f"Patient ID: {patientinfo.loc[patientnum, 'PatientMaritalStatus']}")
+    patient.append(f"Patient ID: {patientinfo.loc[patientnum, 'PatientLanguage']}")
+    patient.append(f"Patient ID: {patientinfo.loc[patientnum, 'PatientPopulationPercentageBelowPoverty']}")
 
     return patient
 
@@ -199,9 +194,8 @@ def search(patientdiagnoses, patientID, searchterm):
     diagnosislist = getalldiagnoses(patientdiagnoses, patientID)
 
     for patientdiagnosis in diagnosislist:
-
-        temppatientdiagnosis = re.sub('[^A-Za-z0-9\']+', ' ', patientdiagnosis).split()
-        newpatientdiagnosis = [x for x in temppatientdiagnosis if not (x in diagnosisfilterlist)]
+        patientdiagnosis = re.sub('[^A-Za-z0-9\']+', ' ', patientdiagnosis).split()
+        newpatientdiagnosis = [x for x in patientdiagnosis if not x in diagnosisfilterlist]
         
         for word in newpatientdiagnosis:
             search = re.search(word, searchterm)
@@ -259,7 +253,7 @@ def convertICTRPyears(trials, trialnum):
 
     for i in range(2):
         # if units are given
-        if (len(ages[i]) > 1) and (ages[i][0].isdigit()):
+        if len(ages[i]) > 1:
             checkunit = ages[i][-1].lower().split("s")[0]
 
             if checkunit == "minute":
@@ -320,28 +314,22 @@ def matchgender(patientinfo, patientnum, trials, trialnum):
     return False
 
 # "wrapper" function that makes all checks, returns True if patient is eligible, False if not
+# TODO may become more stringent depending on testing results-
 def checkeligibility(patientinfo, patientnum, patientdiagnoses, trials, trialnum):
-
 
     # check age, gender, recruitment status. patient has to match all of these
     if not (checkage(patientinfo, patientnum, trials, trialnum) 
             and matchgender(patientinfo, patientnum, trials, trialnum) 
             and checkrecruitmentstatus(trials, trialnum)):
-        
         return False
     
     patientID = getid(patientinfo, patientnum)
 
-    criterion = checkcriteria(patientdiagnoses, patientID, trials, trialnum)
-
-    # check criteria, patient must match o exclusion criteria.
-    # exclusion not blank or not == 1
-    if not ((criterion[1] == []) or (criterion[1] == 1)):
+    # check exclusion criteria, patient must match no exclusion criteria.
+    if not (checkcriteria(patientdiagnoses, patientID, trials, trialnum)[1] == [] or
+            checkcriteria(patientdiagnoses, patientID, trials, trialnum)[1] == 1):
         return False
     
-    #if (criterion[0] == [] or (not (criterion[0] == 1))):
-    #    return False
-
     trialinfo = gettrialinfo(trials, trialnum)
     
     return trialinfo
