@@ -4,7 +4,7 @@ Uses ICTRP trials and EMRBots patient information with language processing to ma
 -
   
 - Patient IDs are specified in ./datasets/100-Patients/PatientCorePopulatedTable.txt, in the "PatientID" column. Ex. "FB2ABB23-C9D0-4D09-8464-49BF0B982F0F"
-- Trial IDs are specified in ./datasets/ICTRP/ICTRPWeek25September2023.csv, in the 1st column. Ex. "NCT06032923"
+- Trial IDs are specified in ./datasets/ICTRP/thousandtrials.csv, in the 1st column. Ex. "NCT06032923"
 
 # Usage:
 ---
@@ -21,3 +21,4 @@ For providers, they must put in their login username and password. The default l
 ---
 1. Run setup.py in order to install all required packages.
 2. Run CTMS.py to view the application. The application has buttons and text prompts to be inputted by the user, and will bring up error prompts when an inccorect input is put in.
+- Note: You must be cd'ed into the root folder "clinical-trial-matching-system" in order for the application to be able to read in the required datasets, else it will throw an error.
